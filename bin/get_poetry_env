@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# CREATE VIRTUAL ENVIRONMENT =============================
+if which pyenv > /dev/null; then
+    pyenv install --skip-existing
+fi
+
+if [ -e pyproject.toml ]; then
+    echo "===installing developer environment==="
+    poetry env use python3.10
+    poetry install
+else
+    echo "===installing Jupyter==="
+    poetry init
+    poetry add --dev jupyter ipykernel black pytest
+    poetry add numpy pandas
+fi
